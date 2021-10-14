@@ -3,7 +3,7 @@ import React from 'react'
 function Footer() {
     return (
         <>
-            <div className='p-6 bg-green-600 bottom-0 w-full'>
+            <div className='p-6 bg-green-600  bottom-0 w-full mt-auto'>
                 <div className='grid grid-cols-2'>
                     <div>
                         <ul class="list-disc">
