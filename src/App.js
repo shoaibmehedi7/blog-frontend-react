@@ -6,25 +6,15 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import Header from './components/common/Header';
+import Footer from './components/common/Footer';
+import Detail from './components/pages/blog/Detail';
 
 function App() {
   return (
     <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              {true ? <Link to="/about">True one</Link> : <Link to="/about">False</Link>}
-              {/* <Link to="/">Home</Link> */}
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-          </ul>
-        </nav>
+      <div className=''>
+        <Header/>
 
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
@@ -35,10 +25,14 @@ function App() {
           <Route path="/users">
             <Blog />
           </Route>
+          <Route path="/:details/:slug">
+            <Detail/>
+          </Route>
           <Route path="/">
             <Blog />
           </Route>
         </Switch>
+        <Footer/>
       </div>
     </Router>
   );
