@@ -9,6 +9,7 @@ import MyFacebookLoader from '../../common/ContentLoadingFacebook';
 import Detail from './Detail';
 
 const Blog = () => {
+  // localStorage.setItem('loggedin',true)
   const [] = useState([]);
   const dispatch = useDispatch();
   const blogs = useSelector(state => state.blog)
