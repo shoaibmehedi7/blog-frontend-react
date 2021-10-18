@@ -1,5 +1,5 @@
 import axios from "axios";
-import { fetchDataError, fetchDataRequest, fetchDataSuccess } from "./blogAction";
+import { fetchDataError, fetchDataRequest, fetchDataSuccess } from "./authAction";
 
 
 export function fetchHomepageBlogs() {

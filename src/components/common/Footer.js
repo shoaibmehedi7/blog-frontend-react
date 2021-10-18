@@ -6,7 +6,7 @@ function Footer() {
             <div className='p-6 bg-green-600  bottom-0 w-full mt-auto'>
                 <div className='grid grid-cols-2'>
                     <div>
-                        <ul class="list-disc">
+                        <ul className="list-disc">
                             <li><a href='#'>Lorem ipsum dolor sit amet, consectetur adipisicing elit</a></li>
                             <li><a href='#'>Lorem ipsum dolor sit amet, consectetur adipisicing elit</a></li>
                             <li><a href='#'>Lorem ipsum dolor sit amet, consectetur adipisicing elit</a></li>

@@ -7,6 +7,8 @@ import { Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
 import rootReducers from './redux/rootReducers';
 import thunk from 'redux-thunk';
+import {createLogger}  from 'redux-logger'
+const loggerMiddleware = createLogger();
 
 // ReactDOM.render(
 //   <React.StrictMode>
@@ -14,7 +16,7 @@ import thunk from 'redux-thunk';
 //   </React.StrictMode>,
 //   document.getElementById('root')
 // );
-const store = createStore(rootReducers, applyMiddleware(thunk));
+const store = createStore(rootReducers, applyMiddleware(thunk,loggerMiddleware));
 
 ReactDOM.render(
   <Provider store={store}>
