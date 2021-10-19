@@ -16,7 +16,7 @@ import { getAuth } from "firebase/auth";
 import SignIn from './components/pages/auth/SignIn';
 import SignUp from './components/pages/auth/SignUp';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { isLoggedIn } from './redux/auth/actions/api';
 
 function App() {
@@ -25,7 +25,8 @@ function App() {
   const dispatch = useDispatch();
 
   const [] = useState([]);
-  // const blogs = useSelector(state => state.login)
+  const blogs = useSelector(state => state.auth)
+// console.log('i am from app js ',blogs);
 
 
   useEffect(() => {
@@ -48,7 +49,7 @@ function App() {
     <Router>
       <Header />
       <div className='grid grid-cols-6'>
-        {!auth.currentUser ? <div className=''><HeaderAdmin /> </div> : <></>}
+        {blogs.user ? <div className=''><HeaderAdmin /> </div> : <></>}
 
 
 
@@ -56,7 +57,7 @@ function App() {
 
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
-        <div className={!auth.currentUser ? 'col-span-5' : 'col-span-6'}>
+        <div className={blogs.user ? 'col-span-5' : 'col-span-6'}>
           <Switch>
             <Route path="/about">
               <Blog />
