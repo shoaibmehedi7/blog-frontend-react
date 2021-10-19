@@ -10,7 +10,7 @@ import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 import Detail from './components/pages/blog/Detail';
 import HeaderAdmin from './components/common/SidebarAdmin';
-import Editor from './components/common/Editor';
+
 import firebaseInit from './utils/firebase';
 import { getAuth } from "firebase/auth";
 import SignIn from './components/pages/auth/SignIn';
@@ -18,6 +18,7 @@ import SignUp from './components/pages/auth/SignUp';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isLoggedIn } from './redux/auth/actions/api';
+import Editor from './components/pages/editor/Editor';
 
 function App() {
   firebaseInit();
@@ -26,37 +27,15 @@ function App() {
 
   const [] = useState([]);
   const blogs = useSelector(state => state.auth)
-// console.log('i am from app js ',blogs);
-
 
   useEffect(() => {
     dispatch(isLoggedIn());
   }, []);
-
-  // auth.onAuthStateChanged((user) => {
-  //   if (user) {
-  //     // User logged in already or has just logged in.
-  //     console.log('init login check',user);
-  //   } else {
-  //     console.log('not logged in');
-  //     // User not logged in or has just logged out.
-  //   }
-  // });
-
-
-  // console.log('app js ',auth.currentUser);
   return (
     <Router>
       <Header />
       <div className='grid grid-cols-6'>
         {blogs.user ? <div className=''><HeaderAdmin /> </div> : <></>}
-
-
-
-
-
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
         <div className={blogs.user ? 'col-span-5' : 'col-span-6'}>
           <Switch>
             <Route path="/about">
@@ -73,7 +52,6 @@ function App() {
               <Detail />
             </Route>
             <Route path="/editor">
-              {/* <h1>hello from editor</h1> */}
               <Editor />
             </Route>
             <Route path="/">
@@ -82,7 +60,6 @@ function App() {
 
           </Switch>
         </div>
-        {/* <Footer /> */}
       </div>
     </Router>
   );
