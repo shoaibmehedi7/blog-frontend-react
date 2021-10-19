@@ -13,39 +13,7 @@ function SignIn() {
 
     const [] = useState([]);
     const dispatch = useDispatch();
-    const blogs = useSelector(state => state.login)
-    // function handleSignIn(email,password) {
-    //     signin(email,password);
-    // }
 
-    // useEffect(() => {
-    //     dispatch(signin(email,password));
-    //   }, []);
-    // const signin = (email, password) => {
-
-
-    //     console.log(email, password);
-    //     const auth = getAuth();
-    //     // auth.name =
-    //     signInWithEmailAndPassword(auth, email, password)
-    //         .then((userCredential) => {
-    //           // Signed in 
-    //           console.log('logged in successfully');
-    //           localStorage.setItem('user', userCredential);
-
-    //           history.push('/editor')
-    //           const user = userCredential.user;
-    //           // ...
-    //         })
-    //         .catch((error) => {
-    //           const errorCode = error.code;
-    //           const errorMessage = error.message;
-    //           console.log('log in error', errorMessage);
-    //           // ..
-    //         });
-
-
-    // }
     return (
         <>
             <div className='content-center	w-full mx-auto'>

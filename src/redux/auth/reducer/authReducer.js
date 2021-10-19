@@ -1,10 +1,10 @@
 const initState = {
     loading: false,
-    countries: [],
+    user: null,
     error: null,
   };
   
-  function signin(state = initState, action) {
+  function auth(state = initState, action) {
     switch (action.type) {
       case 'FETCH_LOGIN_REQUEST':
         return {
@@ -16,7 +16,7 @@ const initState = {
         return {
           ...state,
           loading: false,
-          countries: action.payload,
+          user: action.payload,
         };
       case 'FETCH_LOGIN_ERROR':
         return {
@@ -29,4 +29,4 @@ const initState = {
     }
   }
   
-  export default signin;
+  export default auth;
