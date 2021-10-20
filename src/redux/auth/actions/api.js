@@ -12,7 +12,7 @@ export function signInAPI(email, password) {
         // Signed in 
         const user = userCredential.user;
         localStorage.setItem('user', JSON.stringify(user));
-        dispatch(fetchLoginSuccess());
+        dispatch(fetchLoginSuccess(JSON.stringify(user)));
       })
       .catch((error) => {
         dispatch(fetchLoginError(error.message));
@@ -31,7 +31,7 @@ export function signUpAPI(email, password) {
         // Signed in 
         const user = userCredential.user;
         localStorage.setItem('user', JSON.stringify(user));
-        dispatch(fetchLoginSuccess());
+        dispatch(fetchLoginSuccess(JSON.stringify(user)));
       })
       .catch((error) => {
         dispatch(fetchLoginError(error.message));
@@ -46,32 +46,30 @@ export function isLoggedIn() {
   return (dispatch) => {
     dispatch(fetchLoginRequest());
     const auth = getAuth();
-    // const user = auth.currentUser;
-    // console.log('eikhane ',user);
-    // if (user) {
-    //   dispatch(fetchLoginSuccess());
-    // } else {
-    //   dispatch(fetchLoginError());
-    // }
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        dispatch(fetchLoginSuccess(user));
+      } else {
+        dispatch(fetchLoginError());
+      }
+    });
+  };
+}
 
-      auth.onAuthStateChanged((user) => {
-    if (user) {
-      dispatch(fetchLoginSuccess(user));
-    } else {
-      dispatch(fetchLoginError());
-    }
-  });
 
-    // createUserWithEmailAndPassword(auth, email, password)
-    //   .then((userCredential) => {
-    //     // Signed in 
-    //     const user = userCredential.user;
-    //     localStorage.setItem('user', JSON.stringify(user));
-    //     dispatch(fetchLoginSuccess());
-    //   })
-    //   .catch((error) => {
-    //     dispatch(fetchLoginError(error.message));
-    //   });
+export function signOut() {
+  return (dispatch) => {
+    dispatch(fetchLoginRequest());
+    const auth = getAuth();
+    auth.signOut().then(function() {
+      console.log('Signed Out');
+      dispatch(fetchLoginSuccess());
+
+    }, function(error) {
+      console.error('Sign Out Error', error);
+      dispatch(fetchLoginSuccess());
+
+    });
   };
 }
 

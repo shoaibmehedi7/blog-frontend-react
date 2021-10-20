@@ -7,10 +7,10 @@ import { CREATE_BLOG_ERROR, CREATE_BLOG_REQUEST, CREATE_BLOG_SUCCESS } from "./a
     };
   }
   
-  export function createBlogSuccess(countries) {
+  export function createBlogSuccess(blogContent) {
     return {
       type: CREATE_BLOG_SUCCESS,
-      payload: countries,
+      payload: blogContent,
     };
   }
   export function createBlogError(error) {

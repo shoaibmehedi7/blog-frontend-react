@@ -19,6 +19,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isLoggedIn } from './redux/auth/actions/api';
 import Editor from './components/pages/editor/Editor';
+import Categories from './components/pages/categories/Categories';
 
 function App() {
   firebaseInit();
@@ -26,7 +27,7 @@ function App() {
   const dispatch = useDispatch();
 
   const [] = useState([]);
-  const blogs = useSelector(state => state.auth)
+  const authData = useSelector(state => state.auth)
 
   useEffect(() => {
     dispatch(isLoggedIn());
@@ -35,8 +36,8 @@ function App() {
     <Router>
       <Header />
       <div className='grid grid-cols-6'>
-        {blogs.user ? <div className=''><HeaderAdmin /> </div> : <></>}
-        <div className={blogs.user ? 'col-span-5' : 'col-span-6'}>
+        {authData.user ? <div className=''><HeaderAdmin /> </div> : <></>}
+        <div className={authData.user ? 'col-span-5' : 'col-span-6'}>
           <Switch>
             <Route path="/about">
               <Blog />
@@ -53,6 +54,9 @@ function App() {
             </Route>
             <Route path="/editor">
               <Editor />
+            </Route>
+            <Route path="/categories">
+              <Categories />
             </Route>
             <Route path="/">
               <Blog />

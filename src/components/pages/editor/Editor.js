@@ -6,13 +6,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createBlogPost } from '../../../redux/admin/actions/api';
 
 const Editor = () => {
-    const [] = useState([]);
+    const [updatedContent,setUpdatedContent] = useState([]);
     const dispatch = useDispatch();
     const createBlogDetails = useSelector(state => state.createBlogPostReducer);
     let blogContent = null;
 
 
-    console.log('from view ',createBlogDetails.blogPost);
     return (
         <div className="mx-8 mt-8">
             <h2>Using CKEditor 5 build in React</h2>
@@ -26,7 +25,10 @@ const Editor = () => {
                 onChange={(event, editor) => {
                     const data = editor.getData();
                     console.log({ event, editor, data });
-                    blogContent = data;
+                    
+                    // blogContent = data;
+                    setUpdatedContent(data);
+                    
                 }}
                 onBlur={(event, editor) => {
                     console.log('Blur.', editor);
@@ -36,11 +38,12 @@ const Editor = () => {
                 }}
             />
             <>
-            <button onClick={() => dispatch(createBlogPost(blogContent))} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+            <button onClick={() => dispatch(createBlogPost(updatedContent))} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
                                 Save
                             </button>
-                <p>this is result</p>
-                {ReacthtmlParser(createBlogDetails.blogPost)}
+                <h1>this is result</h1>
+                {ReacthtmlParser(updatedContent)}
+                {createBlogDetails.blogPost}
             </>
         </div>
     );

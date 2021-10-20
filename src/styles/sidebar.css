@@ -10,20 +10,20 @@
 
 .sidebar a {
   display: block;
-  color: black;
+  /* color: black; */
   padding: 16px;
   text-decoration: none;
 }
  
-.sidebar a.active {
+/* .sidebar a.active {
   background-color: #04AA6D;
   color: white;
-}
+} */
 
-.sidebar a:hover:not(.active) {
+/* .sidebar a:hover:not(.active) {
   background-color: #555;
   color: white;
-}
+} */
 
 div.content {
   margin-left: 200px;

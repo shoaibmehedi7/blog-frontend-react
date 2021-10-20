@@ -14,6 +14,12 @@ function SignIn() {
     const [] = useState([]);
     const dispatch = useDispatch();
 
+    const auth = useSelector(state => state.auth)
+    if (auth.user) {
+        history.push('/')
+    }
+
+
     return (
         <>
             <div className='content-center	w-full mx-auto'>
