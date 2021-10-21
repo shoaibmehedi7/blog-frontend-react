@@ -9,9 +9,9 @@ import rootReducers from './redux/rootReducers';
 import thunk from 'redux-thunk';
 import devToolsEnhancer from 'remote-redux-devtools';
 
-import { createLogger } from 'redux-logger'
+// import { createLogger } from 'redux-logger'
 import { composeWithDevTools } from 'redux-devtools-extension';
-const loggerMiddleware = createLogger();
+// const loggerMiddleware = createLogger();
 
 // ReactDOM.render(
 //   <React.StrictMode>
@@ -19,7 +19,7 @@ const loggerMiddleware = createLogger();
 //   </React.StrictMode>,
 //   document.getElementById('root')
 // );
-const store = createStore(rootReducers,composeWithDevTools(applyMiddleware(thunk, loggerMiddleware)));
+const store = createStore(rootReducers,composeWithDevTools(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <Provider store={store}>
