@@ -1,5 +1,5 @@
 class Category {
-    constructor({ name, description,uid,image}) {
+    constructor({ name = "", description = "",uid = null,image = ""}) {
         this.name = name || "";
         this.description = description || "";
         this.image = image || "";
@@ -9,3 +9,5 @@ class Category {
     }
 }
 export default Category;
+
+

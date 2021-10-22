@@ -1,13 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
+import Category from '../../../models/categoryModel';
 import { createCategories, getAllCategories } from '../../../redux/admin/actions/api';
 import CustomInput from '../../common/CustomInput';
+import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { Firestore } from '@firebase/firestore';
+
 
 function Categories() {
   const [inputCategory, handleInputCategory] = useState("");
-  const [inputPass, handleInputPass] = useState("");
+  const [inputImage, handleinputImage] = useState("");
+  const [inputDescription, handleInputDescription] = useState("");
   // let subtitle;
+
+
+  function handleChange(event) {
+    let image = handleinputImage(URL.createObjectURL(event.target.files[0]))
+
+    const storage = getStorage();
+    const storageRef = ref(storage, event.target.files[0].name);
+
+    // 'file' comes from the Blob or File API
+    uploadBytes(storageRef, event.target.files[0]).then((snapshot) => {
+      console.log('Uploaded a blob or file!', snapshot, image);
+    });
+  }
+
 
   useEffect(() => {
     dispatch(getAllCategories());
@@ -17,7 +36,10 @@ function Categories() {
   console.log(categories.categories);
 
 
-  let obj = { 'name': 'ReactJS', 'description': 'This is about react description', 'image': 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg' }
+  // let obj = new Category({ name: 'ReactJS', description: 'about react', image: '' });
+  let obj = new Category({ name: inputCategory, description: inputDescription, image: inputImage });
+
+
   const customStyles = {
     content: {
       top: '50%',
@@ -29,6 +51,8 @@ function Categories() {
       transform: 'translate(-50%, -50%)',
     },
   };
+
+  console.log();
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const dispatch = useDispatch();
   const category = useSelector(state => state.createCategoryReducer)
@@ -48,7 +72,6 @@ function Categories() {
 
   return (
     <div className=''>
-      <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded' onClick={openModal}>Add Category</button>
       <Modal className=''
         ariaHideApp={false}
         isOpen={modalIsOpen}
@@ -100,8 +123,8 @@ function Categories() {
               className="rounded-sm px-4 py-3 mt-3 focus:outline-none w-full border bg-transparent border- 
                               gray-300"
               placeholder="Password"
-              handleInput={handleInputPass}
-              value={inputPass}
+              handleInput={handleInputDescription}
+              value={inputDescription}
             />
           </div>
 
@@ -109,7 +132,7 @@ function Categories() {
             <label className="block text-gray-700 text-sm font-bold mb-2" for="password">
               Choose Cover Image
             </label>
-            <input className='rounded-sm px-4 py-3 mt-3 focus:outline-none w-full border bg-transparent border-gray-300' type="file" id="myfile" name="myfile" />
+            <input type='file' onChange={handleChange} />
           </div>
 
 
@@ -124,30 +147,65 @@ function Categories() {
           </div>
         </form>
       </Modal>
+      {/* <img src={inputImage ? inputImage : 'https://sitechecker.pro/wp-content/uploads/2017/12/URL-meaning.png'} /> */}
 
       <div className='px-8 py-8'>
-      <table className="table-auto bg-gray-100 w-full">
-        <thead>
-          <tr>
-            <th className=''>Title</th>
-            <th className=''>Author</th>
-            <th className=''>Views</th>
-          </tr>
-        </thead>
-        <tbody>
-          {categories && categories.categories ? categories.categories.map((element,index) => 
-            <tr key={index}>
-            <td className='px-8'>{element.name}</td>
-            <td className='px-8'>{element.description}</td>
-            <td className='px-8'>{element.image}</td>
-          </tr>
-          ):          <tr className="bg-emerald-200">
-          <td className='px-8'>A Long and Winding Tour of the History of UI Frameworks and Tools and the Impact on Design</td>
-          <td className='px-8'>Adam</td>
-          <td className='px-8'>112</td>
-        </tr>}
-        </tbody>
-      </table>
+        <div class="w-full xl:w-12/12 mb-12 xl:mb-0 px-4 mx-auto mt-8">
+          <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
+            <div class="rounded-t mb-0 px-4 py-3 border-0">
+              <div class="flex flex-wrap items-center">
+                <div class="relative w-full px-4 max-w-full flex-grow flex-1">
+                  <h3 class="font-semibold text-base text-blueGray-700">Category Management</h3>
+                </div>
+                <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
+                  <button className='bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150' onClick={openModal}>Add Category</button>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="block w-full overflow-x-auto">
+              <table class="items-center bg-transparent w-full border-collapse ">
+                <thead>
+                  <tr>
+                    <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                      Image
+                    </th>
+                    <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                      Category Name
+                    </th>
+                    <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                      Details
+                    </th>
+                    <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                      Action
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody>
+
+                  {categories && categories.categories ? categories.categories.map((element, index) =>
+                    <tr key={index}>
+                      <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'><img class="object-contain h-10 w-10 ..." src={element.name} /></td>
+                      <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>{element.name}</td>
+                      <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>{element.description}</td>
+                      <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'><button class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Delete
+                      </button></td>
+                    </tr>
+                  ) : <tr className="bg-emerald-200">
+                    <td className='px-8'>A Long and Winding Tour of the History of UI Frameworks and Tools and the Impact on Design</td>
+                    <td className='px-8'>Adam</td>
+                    <td className='px-8'>112</td>
+                  </tr>}
+
+                </tbody>
+
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )

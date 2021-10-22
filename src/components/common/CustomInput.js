@@ -1,7 +1,6 @@
 import * as React from "react";
 
 const CustomInput = (props) => {
-
   return (
     <input
       type={props.type}

@@ -58,7 +58,7 @@ function App() {
             <Route path="/categories">
               <Categories />
             </Route>
-            <Route path="/">
+            <Route exact path="/">
               <Blog />
             </Route>
 

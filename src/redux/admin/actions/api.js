@@ -27,9 +27,9 @@ export function createCategories(catObj) {
     dispatch(createCategoryRequest());
     const db = getFirestore();
     try {
-      let catt = new Category({ name: 'ReactJS', description: 'about react', image: '' });
+      // let catt = new Category({ name: 'ReactJS', description: 'about react', image: '' });
 
-      const docRef = await addDoc(collection(db, "categories"), { ...catt });
+      const docRef = await addDoc(collection(db, "categories"), { ...catObj });
       dispatch(createCategorySuccess(docRef));
     } catch (e) {
       dispatch(createCategoryError(e));
