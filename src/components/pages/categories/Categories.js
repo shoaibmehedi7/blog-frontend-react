@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import Category from '../../../models/categoryModel';
 import { createCategories, getAllCategories } from '../../../redux/admin/actions/api';
 import CustomInput from '../../common/CustomInput';
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getStorage, ref, uploadBytes,getDownloadURL } from "firebase/storage";
 import { Firestore } from '@firebase/firestore';
+import { toast } from 'react-toastify';
 
 
 function Categories() {
@@ -13,17 +14,20 @@ function Categories() {
   const [inputImage, handleinputImage] = useState("");
   const [inputDescription, handleInputDescription] = useState("");
   // let subtitle;
-
+  const notify = () => toast.success("Succeed");
 
   function handleChange(event) {
     let image = handleinputImage(URL.createObjectURL(event.target.files[0]))
 
     const storage = getStorage();
-    const storageRef = ref(storage, event.target.files[0].name);
+    const storageRef = ref(storage, 'categories/'+event.target.files[0].name);
 
     // 'file' comes from the Blob or File API
     uploadBytes(storageRef, event.target.files[0]).then((snapshot) => {
-      console.log('Uploaded a blob or file!', snapshot, image);
+      getDownloadURL(snapshot.ref).then((downloadURL) => {
+        notify()
+        console.log('File available at', downloadURL);
+      });
     });
   }
 

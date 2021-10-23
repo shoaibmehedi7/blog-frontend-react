@@ -20,6 +20,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { isLoggedIn } from './redux/auth/actions/api';
 import Editor from './components/pages/editor/Editor';
 import Categories from './components/pages/categories/Categories';
+import {getAllCategories} from './redux/admin/actions/api'
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   firebaseInit();
@@ -32,6 +35,11 @@ function App() {
   useEffect(() => {
     dispatch(isLoggedIn());
   }, []);
+
+  useEffect(() => {
+    dispatch(getAllCategories());
+  }, []);
+
   return (
     <Router>
       <Header />
@@ -64,6 +72,20 @@ function App() {
 
           </Switch>
         </div>
+        {/* <ToastContainer/> */}
+        <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+/>
+{/* Same as */}
+{/* <ToastContainer /> */}
       </div>
     </Router>
   );

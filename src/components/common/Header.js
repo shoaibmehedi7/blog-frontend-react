@@ -1,6 +1,9 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 function Header() {
+    const categories = useSelector(state => state.fetchCategoriesReducer)
+
     return (
         <>
             <nav className="flex items-center justify-between flex-wrap p-6 bg-green-600	sticky top-0 z-50">
@@ -15,7 +18,12 @@ function Header() {
                 </div>
                 <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
                     <div className="text-sm lg:flex-grow">
-                        <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                        {categories && categories.categories ? categories.categories.map(element => 
+                            <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                                {element.name}
+                            </a>
+                        ):'loading'}
+                        {/* <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
                             Docs
                         </a>
                         <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
@@ -23,7 +31,7 @@ function Header() {
                         </a>
                         <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
                             Blog
-                        </a>
+                        </a> */}
                     </div>
                     <div>
                         <a href="#" className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white hover:text-black mt-4 lg:mt-0">Download</a>
